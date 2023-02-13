@@ -1,0 +1,169 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  font-size:25px;
+  font-weight: bold;
+background: url("AdobeStock_103287945.jpeg");
+background-repeat: none;
+    background-position: center;
+    position: relative;
+    color: #fff;
+    overflow:hidden;
+   
+}
+#login-box
+{
+    position: relative;
+    margin: 5% auto;
+    height: 500px;
+    width: 600px;
+    background:#444;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.6);
+}
+.left-box
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    padding: 40px;
+    width: 300px;
+    height: 400px;
+    
+}
+h1
+{
+    margin: 0 0 20px 0;
+    font-size: 28px;
+    font-weight: 300px;
+    color: beige;
+    border-radius: 5px;
+    
+}
+input[type="text"],
+input[type="password"],
+input[type="date"]
+{
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    padding: 4px;
+    width: 220px;
+    height: 32px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid#fff;
+    font-family: sans-serif;
+    font-weight: 400px;
+    font-size: 14px;
+    transition: 1.1s ease;
+  background:none;
+  color: beige;
+    border-radius: 5px;
+   
+}
+input[type="text"]:hover{box-shadow:0 10px 12px 0 rgba(0,0,0,0.5);}
+input[type="password"]:hover{box-shadow: 0 12px 10px 0 rgba(0,0,0,0.5);}
+
+input[type="submit"]:hover,
+input[type="submit"]:focus
+{
+    background-color: firebrick;
+    transition: 0.2s ease;
+    color: beige;
+  border:2px solid darkred;
+    cursor: pointer;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.5);
+    border-radius: 5px;
+    min-width: 100px;
+    right: 200%;
+  
+}
+a{text-decoration: none;color:white;
+font-family: sans-serif;font-weight: bold;font-size:15px;margin-left:30px;}
+.link1{font-size: 20px;}
+.link1:hover{
+    color: firebrick;
+}
+input[type="submit"],link1{
+    display: block;
+    width:70px;
+    padding: 5px;
+    border-radius:5px;
+    border: 1px solid white;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.right-box
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    box-sizing: border-box;
+    padding: 40px;
+    width: 300px;
+    height: 500px;
+    background-image:url(flight.jpg);
+    background-size: cover;
+    background-position: center;
+    display: block;
+    margin-bottom: 40px;
+    font-size: 28px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+.social
+{
+    color: beige;
+    border: 2px ;
+    background: #20B2AA;
+    font-weight: bold;
+    font-family:monospace;
+    border-radius: 5px;
+}
+button
+{
+    margin-bottom: 20px;
+    width:220px;
+    height: 36px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: monospace;
+    transition: 1.1s ease;
+    cursor: pointer;
+    color: #fff;
+}
+.facebook
+{
+    background: #32508e;
+}
+.facebook:hover{box-shadow: 0 12px 16px 0 rgba(0,0,128);}
+
+.twitter
+{
+    background: #55acee;
+}
+.twitter:hover{box-shadow: 0 12px 16px 0 rgba(0,255,255);}
+
+.google
+{
+    background: #dd4b39;
+}
+.google:hover{box-shadow: 0 12px 16px 0 rgba(255,0,0);}
+
+.aa
+{
+    color:beige;
+    text-decoration: none;
+}
+.aa:hover
+{
+    color:#fff;
+    font-weight: bold;
+
+}
+.last{float: left;}
