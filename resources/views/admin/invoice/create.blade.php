@@ -38,7 +38,6 @@
                                     @endif
                                     <h4 style="font-weight: bold ;font-size: 25px "  class="card-title" id="basic-layout-form"> اضافة فاتورة </h4>
                                 </div>
-
                                 <div class="card-content collapse show">
                                     <div class="card-body" style="background-color:#444;">
                                         <form class="form" action="{{route('store')}}" method="POST" enctype="multipart/form-data">

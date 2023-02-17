@@ -27,7 +27,7 @@ class AuthController extends Controller
         return redirect()->route('dashboard');
     }
     public function login(LoginRequest $request){
-        if (auth()->attempt(['email' => $request->email,'password' => $request->password])) {
+        if (auth()->attempt(['email' => $request->email,'password' => $request->password,'status' =>'active'])) {
             return redirect()->route('dashboard');
         }
         else{

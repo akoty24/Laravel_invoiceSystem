@@ -52,10 +52,18 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/style-rtl.css')}}">
     <!-- END Custom CSS-->
     @yield('style')
+
     <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
     <style>
         body {
             font-family:"Lucida Grande", sans-serif;
+        }
+    </style>
+    <style>
+        @media print {
+            #print_Button {
+                display: none;
+            }
         }
     </style>
 </head>

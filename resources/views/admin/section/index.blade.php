@@ -5,7 +5,7 @@
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title"> الاقسام </h3>
+                    <h3 class="content-header-title"> البنوك </h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
@@ -35,7 +35,9 @@
                                                 </ul>
                                             </div>
                                         @endif
-                                        <a  style="width: 100px; border-radius: 10px" class="modal-effect btn btn-outline-success btn-block btn-sm" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">اضافة قسم</a>
+                                            @can('اضافة قسم')
+                                        <a  style="width: 100px; border-radius: 10px" class="modal-effect btn btn-outline-success btn-block btn-sm" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">اضافة بنك</a>
+                                            @endcan
                                     </div>
                                     <a class="heading-elements-toggle"><i
                                                 class="la la-ellipsis-v font-medium-3"></i></a>
@@ -59,10 +61,10 @@
                                             <thead class="">
                                             <tr  style="color: white; font-size: 16px; text-align: center;  ">
 
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm" title="رقم " style=" border-radius: 20px; padding: 5px 20px; font-size: 18px">  رقم</span>  </th>
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm" title="اسم البنك " style=" border-radius: 20px; padding: 5px 20px; font-size: 18px">  اسم البنك</span>  </th>
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm" title="الوصف " style=" border-radius: 20px; padding: 5px 20px; font-size: 18px">  الوصف</span>  </th>
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm" title="العمليات " style=" border-radius: 20px; padding: 5px 20px; font-size: 18px">  العمليات</span>  </th>
+                                                <th><span  class="badge badge-light box-shadow-3" title="رقم " style=" border-radius: 20px; padding: 5px 20px;background: #666EE8; font-size: 18px">  رقم</span>  </th>
+                                                <th><span  class="badge badge-light box-shadow-3" title="اسم البنك " style=" border-radius: 20px; padding: 5px 20px;background: #666EE8; font-size: 18px">  اسم البنك</span>  </th>
+                                                <th><span  class="badge badge-light box-shadow-3" title="الوصف " style=" border-radius: 20px; padding: 5px 20px; background: #666EE8;font-size: 18px">  الوصف</span>  </th>
+                                                <th><span  class="badge badge-light box-shadow-3" title="العمليات " style=" border-radius: 20px; padding: 5px 20px; background: #666EE8;font-size: 18px ">  العمليات</span>  </th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -70,12 +72,16 @@
                                             @foreach($sections as $section)
                                                 <tr>
                                                     <td><span  class="btn-outline-accent-1 btn-min-width box-shadow-2 btn-sm"  style=" border-radius: 20px;  font-size: 14px">{{$section->id}}</span></td>
-                                                    <td><span  class="btn-outline-accent-1 btn-min-width box-shadow-2 btn-sm"  style=" border-radius: 20px;  font-size: 14px">{{$section->name}}</span></td>
-                                                    <td><span  class="btn-outline-accent-1 btn-min-width box-shadow-2 btn-sm"  style=" border-radius: 20px;  font-size: 14px">{{$section->description}}</span></td>
+                                                    <td>{{$section->name}}</td>
+                                                    <td>{{$section->description}}</td>
                                                 <td>
                                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                                        <a style="border-radius: 20px" href="#exampleModal2" data-toggle="modal" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1" data-id="{{$section->id}}" data-name="{{$section->name}}" data-description="{{$section->description}}">edit</a>
-                                                        <a style="border-radius: 20px" href="#modaldemo9" data-toggle="modal" data-id="{{$section->id}}" data-name="{{$section->name}}" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1" >delete</a>
+                                                        @can('تعديل قسم')
+                                                            <a style="border-radius: 20px" href="#exampleModal2" title="تعديل بيانات البنك" data-toggle="modal" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1 btn-sm" data-id="{{$section->id}}" data-name="{{$section->name}}" data-description="{{$section->description}}">تعديل </a>
+                                                        @endcan
+                                                        @can('حذف قسم')
+                                                            <a style=" border-radius: 20px;" href="#modaldemo9"  data-toggle="modal" data-id="{{$section->id}}" data-name="{{$section->name}}" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1 btn-sm" >حذف البنك</a>
+                                                        @endcan
                                                     </div>
                                                 </td>
                                                 </tr>

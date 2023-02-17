@@ -8,6 +8,7 @@
                     <h3 class="content-header-title"> الفواتير </h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
+
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('dashboard')}}">الرئيسية</a>
                                 </li>
@@ -85,6 +86,7 @@
                                                <td>{{$invoice->total}}</td>
                                             </tr>
                                             <tr>
+                                                @can('تغير حالة الدفع')
                                                 <td><span  class="btn-outline-accent-1 btn-min-width box-shadow-1 btn-sm"  style=" border-radius: 20px;  font-size: 17px; font-weight: bold; color: black">الحالة</span></td>
                                                 @if($invoice->status == "مدفوعة")
                                                     <td><a style=" border-radius: 20px;padding: 5px 10px; " href="#exampleModal2" data-toggle="modal" class="btn btn-success  box-shadow-3 btn-sm" title="تغيير حالة الدفع " >{{$invoice->status}}</a></td>
@@ -93,6 +95,7 @@
                                                 @else
                                                     <td><a style=" border-radius: 20px;padding: 5px 10px; " href="#exampleModal2" data-toggle="modal" class="btn btn-red  box-shadow-3 btn-sm" title="تغيير حالة الدفع  ">{{$invoice->status}}</a></td>
                                                 @endif
+                                                @endcan
                                                 <td><span  class="btn-outline-accent-1 btn-min-width box-shadow-1 btn-sm"  style=" border-radius: 20px;  font-size: 17px; font-weight: bold; color: black">تاريخ الدفع</span></td>
                                                 <td>{{$invoice->payment_date}}</td>
                                             </tr>
@@ -148,18 +151,19 @@
                                                         {{ csrf_field() }}
                                                         <div class="modal-body">
                                                             <div class="form-group">
-                                                                <input type="hidden" class="form-control" name="id" id="id" value="{{$invoice->id}}">
+                                                                <input type="hidden" name="id" id="id" class="form-control">
                                                             </div>
-                                                            <label style="color:white;" class="my-1 mr-2" for="inlineFormCustomSelectPref">الحالة</label>
-                                                            <input  value="{{$invoice->status}}" class="custom-select my-1 mr-sm-2" required>
-
-                                                            <select name="status" class="custom-select my-1 mr-sm-2" required>
-                                                                <option  style="color: black" selected>اختار الحالة</option>
-                                                                <option  style="color: black" value="مدفوعة">مدفوعة</option>
-                                                                <option  style="color: black" value="غيرمدفوعة" > غيرمدفوعة</option>
+                                                            <div style="float: right">  <label style="color:white;" class="my-1 mr-2" for="inlineFormCustomSelectPref">الحالة</label>
+                                                                <input type="button"  name="status"  id="status" class="btn-primary btn-min-width box-shadow-3 btn-sm" style=" border-radius: 20px;padding: 5px 0; "><br>
+                                                            </div>
+                                                            <label style="color:white;" class="my-1 mr-2" for="inlineFormCustomSelectPref">انقر لتغيير الحالة الحالة</label>
+                                                            <select name="status" id="status" class="custom-select my-1 mr-sm-2" required>
+                                                                <option  style="color: green" value="مدفوعة">مدفوعة</option>
+                                                                <option  style="color: blue" value="مدفوعةجزئيا" > مدفوعةجزئيا</option>
+                                                                <option  style="color: red" value="غيرمدفوعة" > غيرمدفوعة</option>
                                                             </select>
                                                             <label style="color:white;" for="exampleInputEmail1">تاريخ الدفع </label>
-                                                            <input type="date" class="form-control"  value="{{$invoice->payment_date}}" id="payment_date"  name="payment_date" required>
+                                                            <input type="date" class="form-control"  id="payment_date"  name="payment_date" required>
 
                                                         </div>
 

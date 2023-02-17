@@ -1,7 +1,5 @@
-<nav
-    class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light bg-info navbar-shadow">
-
-    <div class="navbar-wrapper">
+<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light bg-info navbar-shadow">
+    <div class="navbar-wrapper" style="background: #eee;">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mobile-menu d-md-none mr-auto"><a
@@ -30,7 +28,7 @@
                 </ul>
 
                 <ul class="nav navbar-nav float-right">
-           <li class="dropdown dropdown-notification nav-item">
+                    <li class="dropdown dropdown-notification nav-item">
                         <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-bell"></i>
                             <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow">5</span>
                         </a>
@@ -214,16 +212,14 @@
                             </li>
                             <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center"
                                                                 href="javascript:void(0)">Read all messages</a></li>
+
                         </ul>
                     </li>
-
                     <li class="dropdown dropdown-user nav-item">
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <span class="user-name text-bold-700"> </span>
+                                <span class="user-name text-bold-700"> {{ Auth::user()->fname }}</span>
                                 <span class="avatar avatar-online"><img  style="height: 35px;" src="{{asset('assets/admin/images/logo/logo.png')}}" alt="avatar"></span>
                         </a>
-
-
                         <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href=""><i
                                     class="ft-user"></i>Edit profile </a>
                             <div class="dropdown-divider"></div>
@@ -232,9 +228,8 @@
                         </div>
                     </li>
 
-
-
                 </ul>
+
             </div>
         </div>
 

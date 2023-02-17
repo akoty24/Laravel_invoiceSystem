@@ -35,7 +35,9 @@
                                                 </ul>
                                             </div>
                                         @endif
+                                        @can('اضافة منتج')
                                           <a  style="width: 100px; border-radius: 10px" class="modal-effect btn btn-outline-success btn-block btn-sm" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">اضافة منتج</a>
+                                            @endcan
                                     </div>
                                     <a class="heading-elements-toggle"><i
                                                 class="la la-ellipsis-v font-medium-3"></i></a>
@@ -59,11 +61,11 @@
                                             <thead class="">
                                             <tr style="color: white; background:linear-gradient(195deg, #66BB6A 0%, #43A047 100%); font-size: 16px; text-align: center;  ">
                                             <tr  style="color: white; font-size: 16px; text-align: center;  ">
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm"  style=" border-radius: 20px; padding: 5px 20px; font-size: 18px">  رقم</span>  </th>
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm"  style=" border-radius: 20px; padding: 5px 20px; font-size: 18px">  اسم المنتج</span>  </th>
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm"  style=" border-radius: 20px; padding: 5px 20px; font-size: 18px">  اسم البنك</span>  </th>
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm" style=" border-radius: 20px; padding: 5px 20px; font-size: 18px">  الوصف</span>  </th>
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm" style=" border-radius: 20px; padding: 5px 20px; font-size: 18px">  العمليات</span>  </th>
+                                                <th><span  class="badge badge-light box-shadow-3"  style=" border-radius: 20px; padding: 5px 20px;background: #666EE8; font-size: 18px">  رقم</span>  </th>
+                                                <th><span  class="badge badge-light box-shadow-3"  style=" border-radius: 20px; padding: 5px 20px;background: #666EE8; font-size: 18px">  اسم المنتج</span>  </th>
+                                                <th><span  class="badge badge-light box-shadow-3"  style=" border-radius: 20px; padding: 5px 20px;background: #666EE8; font-size: 18px">  اسم البنك</span>  </th>
+                                                <th><span  class="badge badge-light box-shadow-3" style=" border-radius: 20px; padding: 5px 20px;background: #666EE8; font-size: 18px">  الوصف</span>  </th>
+                                                <th><span  class="badge badge-light box-shadow-3" style=" border-radius: 20px; padding: 5px 20px;background: #666EE8; font-size: 18px">  العمليات</span>  </th>
 
                                             </tr>
                                             </thead>
@@ -72,14 +74,18 @@
                                             @foreach($products as $product)
                                                 <tr>
                                                     <td><span  class="btn-outline-accent-1 btn-min-width box-shadow-2 btn-sm"  style=" border-radius: 20px;  font-size: 14px">{{$product->id}}</span></td>
-                                                    <td><span  class="btn-outline-accent-1 btn-min-width box-shadow-2 btn-sm"  style=" border-radius: 20px;  font-size: 14px">{{$product->name}}</span></td>
-                                                    <td><span  class="btn-outline-accent-1 btn-min-width box-shadow-2 btn-sm"  style=" border-radius: 20px;  font-size: 14px">{{$product->section->name}}</span></td>
-                                                    <td><span  class="btn-outline-accent-1 btn-min-width box-shadow-2 btn-sm"  style=" border-radius: 20px;  font-size: 14px">{{$product->description}}</span></td>
+                                                    <td>{{$product->name}}</td>
+                                                    <td>{{$product->section->name}}</td>
+                                                    <td>{{$product->description}}</td>
                                                     
                                                 <td>
                                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                                        <a style="border-radius: 20px" href="#exampleModal2" data-toggle="modal"data-id="{{$product->id}}" data-name="{{$product->name}}" data-section_name="{{$product->section->name}}" data-description="{{$product->description}}" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1" >edit</a>
-                                                        <a style="border-radius: 20px" href="#modaldemo9" data-toggle="modal" data-id="{{$product->id}}" data-name="{{$product->name}}" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1" >delete</a>
+                                                        @can('تعديل منتج')
+                                                            <a style="border-radius: 20px" href="#exampleModal2" data-toggle="modal"data-id="{{$product->id}}" data-name="{{$product->name}}" data-section_name="{{$product->section->name}}" data-description="{{$product->description}}" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1 btn-sm" >تعديل</a>
+                                                        @endcan
+                                                        @can('حذف منتج')
+                                                            <a style="border-radius: 20px" href="#modaldemo9" data-toggle="modal" data-id="{{$product->id}}" data-name="{{$product->name}}" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1 btn-sm" >حذف</a>
+                                                        @endcan
                                                     </div>
                                                 </td>
                                                 </tr>

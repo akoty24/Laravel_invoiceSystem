@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\InvoicesExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InvoiceRequest;
 use App\Models\Invoice;
 use App\Models\section;
+use App\Models\User;
+use App\Notifications\AddInvoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InvoiceController extends Controller
 {
+
     public function index(){
         $invoices = Invoice::all();
         return view('admin.invoice.index', compact('invoices'));
@@ -31,9 +37,13 @@ class InvoiceController extends Controller
     }
     public function paid_partial(){
         $invoices = Invoice::where('status','مدفوعةجزئيا')->get();
-
         return view('admin.invoice.paid_partial', compact('invoices'));
     }
+    public function archive_invoice(){
+        $invoices = Invoice::onlyTrashed()->orderBy( 'created_at', 'DESC' )->take( 10 )->get();
+        return view('admin.invoice.archive_invoice', compact('invoices'));
+    }
+
     public function create(){
 
         $sections = section::all();
@@ -61,6 +71,11 @@ class InvoiceController extends Controller
         $invoices->product_id=$request->product;
         $invoices->user_id=Auth::user()->id;
         $invoices->save();
+
+
+         $user = User::first();
+         Notification::send($user, new AddInvoice($invoices->id));
+
         return redirect()->route('index')->with(['success' =>'تم اضافة الفاتورة بنجاح']);
     }
     public function show($id)
@@ -118,18 +133,29 @@ class InvoiceController extends Controller
         $id=$request->id;
 
         $invoices=Invoice::find($id);
-        if ($request->status!='غيرمدفوعة') {
+        if ($invoices->status=='مدفوعة' && $request->status == 'مدفوعة' ){
+            return redirect()->route('index')->with(['error' =>' الفاتورة مدفوعة بالفعل ']);
+        }
+        elseif ($invoices->status=='مدفوعةجزئيا' && $request->status == 'مدفوعةجزئيا' ){
+            return redirect()->route('index')->with(['error' =>' الفاتورة مدفوعة جزئيا بالفعل ']);
+        }
+        elseif ($invoices->status=='غيرمدفوعة' && $request->status == 'غيرمدفوعة' ){
+            return redirect()->route('index')->with(['error' =>' الفاتورة  غيرمدفوعة بالفعل ']);
+        }
+        elseif ($invoices->status=='مدفوعة' && $request->status == 'مدفوعةجزئيا' ){
+            return redirect()->route('index')->with(['error' =>' الفاتورة مدفوعة بالفعل لا يمكن تغييرها الي مدفوعة جزئيا ']);
+        }
+        elseif (($invoices->status=='مدفوعةجزئيا' || $invoices->status=='مدفوعة') && $request->status == 'غيرمدفوعة') {
+            return redirect()->route('index')->with(['error' =>' لا يمكن تحويل الفاتورة الي غير مدفوعة ']);
+        }
+        else{
             $invoices->update([
                 'status' => $request->status,
                 'payment_date' => $request->payment_date,
                 'user_id'=>Auth::user()->id,
-
-
             ]);
             return redirect()->route('index')->with(['success' =>'تم تحديث حالة الدفع بنجاح']);
-        }
-        else{
-            return redirect()->route('index')->with(['error' =>'الفاتورة مدفوعة بالفعل لا يمكن تغييرها ']);
+
         }
 
 
@@ -154,10 +180,15 @@ public function open_file ($file_name){
     public function download_file($file_name){
         $files= public_path('attachments'.'/'.$file_name);
         return response()->download($files);
-
-
     }
 
 
-
+    public function print_invoice($id){
+       $invoice = Invoice::find($id);
+       return view('admin.invoice.print_invoice',compact('invoice'));
+    }
+    public function export()
+    {
+        return Excel::download(new InvoicesExport(), 'Invoices.xlsx');
+    }
 }

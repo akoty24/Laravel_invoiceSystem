@@ -17,7 +17,8 @@
         @include('alerts.success')
         @include('alerts.sweet_alert')
         @include('alerts.error')
-        <form name="form" action="{{route('login')}}" method="POST">
+        <form name="form" action="{{route('login')}}" method="post">
+
             @csrf
             <input type="text" name="email" placeholder="email">
             @error('email')

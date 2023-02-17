@@ -9,9 +9,9 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><span href="{{route('dashboard')}}">Main</span>
+                                <li class="breadcrumb-item"><span href="{{route('dashboard')}}">الرئيسية</span>
                                 </li>
-                                <li class="breadcrumb-item active">الفواتير
+                                <li class="breadcrumb-item active"> كل الفواتير
                                 </li>
                             </ol>
                         </div>
@@ -35,7 +35,14 @@
                                                 </ul>
                                             </div>
                                         @endif
-                                        <a  href="{{route('create')}}" style="width: 100px; border-radius: 10px; font-size: 14px" class="modal-effect btn btn-outline-success btn-block btn-sm" data-effect="effect-scale" >اضافة فاتورة</a>
+                                        <div class="row">
+                                            @can('اضافة فاتورة')
+                                                <a  href="{{route('create')}}" style="width: 100px; border-radius: 10px; font-size: 14px" class="modal-effect btn btn-outline-success mr-1 mb-1 btn-sm " data-effect="effect-scale" >اضافة فاتورة</a>
+                                            @endcan
+                                            @can('تصدير EXCEL')
+                                                <a  href="{{route('export')}}" style="width: 100px; border-radius: 10px; font-size: 14px" class="modal-effect btn btn-outline-success  mr-1 mb-1 btn-sm" data-effect="effect-scale" >تصدير اكسيل</a>
+                                            @endcan
+                                        </div>
                                     </div> <span class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></span>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
@@ -56,12 +63,11 @@
                                         <table class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead class="">
                                             <tr  style="color: white; font-size: 16px; text-align: center;  ">
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm" title="رقم الفاتورة" style=" border-radius: 20px; font-size: 18px">  رقم الفاتورة</span> </th>
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm" title="تاريخ الفاتورة" style=" border-radius: 20px;  font-size: 18px"> تاريخ الفاتورة</span>  </th>
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm" title="القسم " style=" border-radius: 20px; padding: 5px 20px; font-size: 18px">  القسم</span> </th>
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm" title="القسم " style=" border-radius: 20px; padding: 5px 20px; font-size: 18px">  المنتج</span> </th>
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm" title="الحالة" style=" border-radius: 20px; padding: 5px 20px; font-size: 18px">   الحالة</span>  </th>
-                                                <th><span  class="btn-primary btn-min-width box-shadow-3 btn-sm" title="العمليات " style=" border-radius: 20px; padding: 5px 20px; font-size: 18px">  العمليات</span>  </th>
+                                                <th><span  class="badge badge-light box-shadow-3" title="رقم الفاتورة" style=" background: #666EE8;border-radius: 20px; font-size: 18px">  رقم الفاتورة</span> </th>
+                                                <th><span  class="badge badge-light box-shadow-3" title="تاريخ الفاتورة" style="background: #666EE8; border-radius: 20px;  font-size: 18px"> تاريخ الفاتورة</span>  </th>
+                                                <th><span  class="badge badge-light box-shadow-3" title="البنك " style="background: #666EE8; border-radius: 20px; padding: 5px 20px; font-size: 18px">  البنك</span> </th>
+                                                <th><span  class="badge badge-light box-shadow-3" title="الحالة" style="background: #666EE8; border-radius: 20px; padding: 5px 20px; font-size: 18px">   الحالة</span>  </th>
+                                                <th><span  class="badge badge-light box-shadow-3" title="العمليات " style="background: #666EE8; border-radius: 20px; padding: 5px 20px; font-size: 18px">  العمليات</span>  </th>
                                             </tr>
 
                                             </thead>
@@ -70,23 +76,32 @@
                                                 @foreach($invoices as $invoice)
                                                     <tr>
                                                         <td><span  class="btn-outline-accent-1 btn-min-width box-shadow-2 btn-sm" title="رقم الفاتورة" style=" border-radius: 20px;  font-size: 14px">{{$invoice->id}}</span></td>
-                                                        <td><span  class="btn-outline-accent-1 btn-min-width box-shadow-2 btn-sm" title="تاريخ الفاتورة " style="  border-radius: 20px;font-size: 14px">{{$invoice->invoice_date}}</span></td>
-                                                        <td><span  class="btn-outline-accent-1 btn-min-width box-shadow-2 btn-sm" title="اسم البنك" style="border-radius: 20px; font-size: 14px">{{$invoice->section->name}}</span></td>
-                                                        <td><span  class="btn-outline-accent-1 btn-min-width box-shadow-2 btn-sm" title="اسم المنتج " style="border-radius: 20px;  font-size: 14px">{{$invoice->product->name}}</span></td>
-                                                        @if($invoice->status == "مدفوعة")
-                                                            <td><a href="#exampleModal2" data-toggle="modal" data-status="{{$invoice->status}}" data-id="{{$invoice->id}}" data-payment_date="{{$invoice->payment_date}}" class="btn btn-outline-success btn-min-width box-shadow-3 btn-sm" title="تغيير حالة الدفع " style=" border-radius: 20px;padding: 5px 0; ">{{$invoice->status}}</a></td>
-                                                        @elseif($invoice->status == "مدفوعةجزئيا")
-                                                            <td><a href="#exampleModal2"  data-toggle="modal" data-status="{{$invoice->status}}" data-id="{{$invoice->id}}" data-payment_date="{{$invoice->payment_date}}" class="btn btn-outline-blue btn-min-width box-shadow-3 btn-sm" title="تغيير حالة الدفع " style=" border-radius: 20px;padding: 5px 0; ">{{$invoice->status}}</a></td>
-                                                        @else
-                                                            <td><a href="#exampleModal2"  data-toggle="modal" data-status="{{$invoice->status}}" data-id="{{$invoice->id}}" data-payment_date="{{$invoice->payment_date}}" class="btn btn-outline-red btn-min-width box-shadow-3 btn-sm" title="تغيير حالة الدفع " style=" border-radius: 20px;padding: 5px 0; ">{{$invoice->status}}</a></td>
-
-                                                        @endif
+                                                        <td title="تاريخ الفاتورة "> {{$invoice->invoice_date}}</td>
+                                                        <td title="اسم البنك">  {{$invoice->section->name}}</td>
+                                                        @can('تغير حالة الدفع')
+                                                            @if($invoice->status == "مدفوعة")
+                                                                <td><a href="#exampleModal2" data-toggle="modal" data-status="{{$invoice->status}}" data-id="{{$invoice->id}}" data-payment_date="{{$invoice->payment_date}}" class="btn btn-success btn-min-width box-shadow-3 btn-sm" title="تغيير حالة الدفع " style=" border-radius: 20px;padding: 5px 0; ">{{$invoice->status}}</a></td>
+                                                            @elseif($invoice->status == "مدفوعةجزئيا")
+                                                                <td><a href="#exampleModal2"  data-toggle="modal" data-status="{{$invoice->status}}" data-id="{{$invoice->id}}" data-payment_date="{{$invoice->payment_date}}" class="btn btn-blue btn-min-width box-shadow-3 btn-sm" title="تغيير حالة الدفع " style=" border-radius: 20px;padding: 5px 0; ">{{$invoice->status}}</a></td>
+                                                            @else
+                                                                <td><a href="#exampleModal2"  data-toggle="modal" data-status="{{$invoice->status}}" data-id="{{$invoice->id}}" data-payment_date="{{$invoice->payment_date}}" class="btn btn-red btn-min-width box-shadow-3 btn-sm" title="تغيير حالة الدفع " style=" border-radius: 20px;padding: 5px 0; ">{{$invoice->status}}</a></td>
+                                                            @endif
+                                                        @endcan
 
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <a style=" border-radius: 20px; font-size: 14px"  href="{{route('show',$invoice->id)}}"  title=" عرض تفاصيل الفاتورة "  class="btn btn-outline-amber btn-min-width box-shadow-3  mr-1 mb-1 btn-sm " >details</a>
-                                                                <a style=" border-radius: 20px;font-size: 14px"  href="{{route('edit',$invoice->id)}}" title=" تعديل الفاتورة" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1 btn-sm" >edit</a>
-                                                                <a style=" border-radius: 20px;font-size: 14px" href="#modaldemo9" data-toggle="modal" title=" حذف الفاتورة" data-id="{{$invoice->id}}" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1 btn-sm " >delete</a>
+                                                                @can('عرض الفاتورة')
+                                                                    <a style=" border-radius: 20px; font-size: 14px"  href="{{route('show',$invoice->id)}}"  title=" عرض تفاصيل الفاتورة "  class="btn btn-outline-amber btn-min-width box-shadow-3  mr-1 mb-1 btn-sm " >تفاصيل الفاتورة</a>
+                                                                @endcan
+                                                                @can('طباعةالفاتورة')
+                                                                    <a style=" border-radius: 20px; font-size: 14px"  href="{{route('print',$invoice->id)}}"  title=" طباعة الفاتورة "  class="btn btn-outline-success btn-min-width box-shadow-3  mr-1 mb-1 btn-sm " >طباعة الفاتورة</a>
+                                                                @endcan
+                                                                @can('تعديل الفاتورة')
+                                                                    <a style=" border-radius: 20px;font-size: 14px"  href="{{route('edit',$invoice->id)}}" title=" تعديل الفاتورة" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1 btn-sm" >تعديل الفاتورة</a>
+                                                                @endcan
+                                                                @can('حذف الفاتورة')
+                                                                    <a style=" border-radius: 20px;font-size: 14px" href="#modaldemo9" data-toggle="modal" title=" حذف الفاتورة" data-id="{{$invoice->id}}" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1 btn-sm " >حذف الفاتورة</a>
+                                                                @endcan
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -115,7 +130,8 @@
                                                                 <div style="float: right">  <label style="color:white;" class="my-1 mr-2" for="inlineFormCustomSelectPref">الحالة</label>
                                                                     <input type="button"  name="status"  id="status" class="btn-primary btn-min-width box-shadow-3 btn-sm" style=" border-radius: 20px;padding: 5px 0; "><br>
                                                                 </div>
-                                                                <label style="color:white;" class="my-1 mr-2" for="inlineFormCustomSelectPref">انقر لتغيير الحالة الحالة</label>
+                                                                <br>
+                                                                <label style="color:white;" class="my-1 mr-2" for="inlineFormCustomSelectPref">انقر لتغيير الحالة</label>
                                                                 <select name="status" id="status" class="custom-select my-1 mr-sm-2" required>
                                                                     <option  style="color: green" value="مدفوعة">مدفوعة</option>
                                                                     <option  style="color: blue" value="مدفوعةجزئيا" > مدفوعةجزئيا</option>

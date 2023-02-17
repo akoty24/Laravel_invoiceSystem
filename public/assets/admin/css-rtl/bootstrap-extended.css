@@ -321,6 +321,16 @@ form .form-control {
   font-size: 16px;
   width: 435px;
 }
+form .form-controll {
+
+  border: 1px solid black;
+  color: grey;
+  border-radius: 8px;
+  background-color: white;
+  font-size: 16px;
+  width: 500px;
+  height: 40px;
+}
 form .form-control::-webkit-input-placeholder {
   color : #AEB5DA;
 }
