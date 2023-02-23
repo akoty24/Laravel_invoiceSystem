@@ -82,12 +82,14 @@
                                                                 <a style=" border-radius: 20px;font-size: 14px"  href="{{route('roles.show',$role->id)}}" title=" عرض الصلاحية " class="btn btn-outline-amber btn-min-width box-shadow-3 mr-1 mb-1 btn-sm" >عرض الصلاحية</a>
                                                                 @endcan
                                                                 @can('تعديل صلاحية')
-                                                                <a style=" border-radius: 20px;font-size: 14px"  href="{{route('roles.edit',$role->id)}}" title=" تعديل الصلاحية " class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1 btn-sm" >تعديل الصلاحية</a>
+                                                                        @if ($role->name !== 'owner')
+                                                                        <a style=" border-radius: 20px;font-size: 14px"  href="{{route('roles.edit',$role->id)}}" title=" تعديل الصلاحية " class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1 btn-sm" >تعديل الصلاحية</a>
+                                                                        @endif
                                                                     @endcan
                                                                     @can('حذف صلاحية')
                                                                         @if ($role->name !== 'owner')
                                                                 <a style=" border-radius: 20px;font-size: 14px" href="#modaldemo9" data-toggle="modal" data-id="{{$role->id}}" data-name="{{$role->name}}"    class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1 btn-sm " >حذف الصلاحية</a>
-                                                                       @endif
+                                                                                @endif
                                                                     @endcan
                                                             </div>
                                                         </td>

@@ -52,7 +52,7 @@
                         @endcan
                         @can('تقرير العملاء')
                     <li>
-                        <a class="menu-item" href="" data-i18n="nav.dash.crypto">تقرير العملاء</a>
+                        <a class="menu-item" href="{{route('customers.report')}}" data-i18n="nav.dash.crypto">تقرير العملاء</a>
                     </li>
                         @endcan
                 </ul>

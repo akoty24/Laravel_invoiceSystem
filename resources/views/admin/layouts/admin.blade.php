@@ -166,6 +166,15 @@
         meridians: true,setCurrentTime: false
     });
 </script>
+
+<script>
+    setInterval(function() {
+        $("#notifications_count").load(window.location.href + " #notifications_count");
+        $("#unreadNotifications").load(window.location.href + " #unreadNotifications");
+        $("#MarkAsRead_all").load(window.location.href + " #MarkAsRead_all");
+
+    }, 5000);
+</script>
 @yield('script')
 </body>
 </html>

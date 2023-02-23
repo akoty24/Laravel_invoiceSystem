@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\admin\CustomerReportController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\InvoiceController;
 use App\Http\Controllers\admin\InvoiceReportController;
+use App\Http\Controllers\admin\NotificationController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\SectionController;
@@ -43,10 +45,19 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('unpaid', [InvoiceController::class,'unpaid'])->name('unpaid');
     Route::get('paid_partial', [InvoiceController::class,'paid_partial'])->name('paid_partial');
     Route::get('archive_invoice', [InvoiceController::class,'archive_invoice'])->name('archive_invoice');
+
     Route::get('print_invoice/{id}', [InvoiceController::class,'print_invoice'])->name('print');
     Route::get('invoices/export/', [InvoiceController::class, 'export'])->name('export');
+
     Route::get('invoices_report', [InvoiceReportController::class, 'index'])->name('invoices.report');
     Route::post('Search_invoices', [InvoiceReportController::class, 'search_invoices'])->name('search.invoices');
+
+    Route::get('customers_report', [CustomerReportController::class, 'index'])->name('customers.report');
+    Route::post('Search_customers', [CustomerReportController::class, 'search_customers'])->name('search.customers');
+
+    Route::get('MarkAsRead_all',[NotificationController::class,'MarkAsRead_all'])->name('MarkAsRead_all');
+    Route::get('unreadNotifications_count', [NotificationController::class,'unreadNotifications_count'])->name('unreadNotifications_count');
+    Route::get('unreadNotifications', [NotificationController::class,'unreadNotifications'])->name('unreadNotifications');
 
     Route::resource('roles',RoleController::class);
     Route::resource('users',UserController::class);

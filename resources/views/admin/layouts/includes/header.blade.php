@@ -26,45 +26,43 @@
                     <li class="nav-item d-none d-md-block"><a class="nav-link nav-link-expand" href="#"><i
                                 class="ficon ft-maximize"></i></a></li>
                 </ul>
-
                 <ul class="nav navbar-nav float-right">
+                    @can('الاشعارات')
                     <li class="dropdown dropdown-notification nav-item">
-                        <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-bell"></i>
-                            <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow">5</span>
+                        <a  class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-bell"></i>
+                            <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow">{{ auth()->user()->unreadNotifications->count() }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                             <li class="dropdown-menu-header">
                                 <h6 class="dropdown-header m-0">
-                                    <span class="grey darken-2">Notifications</span>
+                                    <span class="grey darken-2">الاشعارات</span>
                                 </h6>
-                                <span
-                                        class="notification-tag badge badge-default badge-danger float-right m-0">5 New</span>
+                                <span id="notifications_count" class="notification-tag badge badge-default badge-danger float-right m-0"> {{ auth()->user()->unreadNotifications->count() }}  اشعارات غير مقروءة</span>
                             </li>
-                            <li class="scrollable-container media-list w-100">
-                                <a href="javascript:void(0)">
+                            <li class="scrollable-container media-list w-100" id="unreadNotifications">
+                                @foreach (auth()->user()->unreadNotifications as $notification)
+                                <a href="{{ route('show',$notification->data['id'])}}">
                                     <div class="media">
-                                        <div class="media-left align-self-center"><i
-                                                    class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
+                                        <div class="media-left align-self-center"><i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
                                         <div class="media-body">
-                                            <h6 class="media-heading">You have new order!</h6>
-                                            <p class="notification-text font-small-3 text-muted">Lorem ipsum dolor sit
-                                                amet, consectetuer elit.</p>
-                                            <small>
-                                                <time class="media-meta text-muted"
-                                                      datetime="2015-06-11T18:29:20+08:00">30 minutes ago
-                                                </time>
-                                            </small>
+                                                <h6 style="color: red"  class="media-heading">لديك فاتورة جديدة !</h6>
+                                                <p style="color: blue" class="notification-text">{{ $notification->data['title'] }}{{ $notification->data['user'] }}</p>
+                                                <small>
+                                                    <time style="color: blue"  class="media-meta"
+                                                          datetime="2015-06-11T18:29:20+08:00">{{ $notification->created_at}}
+                                                    </time>
+                                                </small>
                                         </div>
                                     </div>
                                 </a>
-                                <a href="javascript:void(0)">
+                                @endforeach
+
+                                <a href="">
                                     <div class="media">
-                                        <div class="media-left align-self-center"><i
-                                                    class="ft-download-cloud icon-bg-circle bg-red bg-darken-1"></i></div>
+                                        <div class="media-left align-self-center"><i class="ft-download-cloud icon-bg-circle bg-red bg-darken-1"></i></div>
                                         <div class="media-body">
                                             <h6 class="media-heading red darken-1">99% Server load</h6>
-                                            <p class="notification-text font-small-3 text-muted">Aliquam tincidunt
-                                                mauris eu risus.</p>
+                                            <p class="notification-text font-small-3 text-muted"></p>
                                             <small>
                                                 <time class="media-meta text-muted"
                                                       datetime="2015-06-11T18:29:20+08:00">Five hour ago
@@ -119,11 +117,12 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center"
-                                                                href="javascript:void(0)">Read all notifications</a>
+                            <li class="dropdown-menu-footer">
+                                <a id="MarkAsRead_all" class="dropdown-item text-muted text-center" href="{{route('MarkAsRead_all')}}">تعيين الكل كمقروء</a>
                             </li>
                         </ul>
                     </li>
+                    @endcan
                     <li class="dropdown dropdown-notification nav-item">
                         <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i
                                     class="ficon ft-mail"> </i></a>
@@ -227,8 +226,9 @@
                                  </a>
                         </div>
                     </li>
-
                 </ul>
+
+
 
             </div>
         </div>

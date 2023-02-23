@@ -6,6 +6,7 @@ use App\Exports\InvoicesExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InvoiceRequest;
 use App\Models\Invoice;
+use App\Models\Product;
 use App\Models\section;
 use App\Models\User;
 use App\Notifications\AddInvoice;
@@ -72,9 +73,14 @@ class InvoiceController extends Controller
         $invoices->user_id=Auth::user()->id;
         $invoices->save();
 
-
-         $user = User::first();
-         Notification::send($user, new AddInvoice($invoices->id));
+// mail
+       // $invoice_id = Invoice::latest()->first()->id;
+         //$user = User::first();
+         //Notification::send($user, new AddInvoice($invoice_id));
+//database
+        $invoices = Invoice::latest()->first();
+        $user = User::get();
+        Notification::send($user, new \App\Notifications\add_invoice($invoices));
 
         return redirect()->route('index')->with(['success' =>'تم اضافة الفاتورة بنجاح']);
     }
@@ -166,7 +172,7 @@ class InvoiceController extends Controller
     public function getproducts(Request $request)
     {
         $id=$request->section_id;
-        $products = DB::table("products")->where("section_id", $id)->select("name","id")->get();
+        $products = Product::where("section_id", $id)->select("name","id")->get();
         return response()->json($products);
     }
 
